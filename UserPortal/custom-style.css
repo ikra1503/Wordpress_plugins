@@ -1,0 +1,1800 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+/* Card Styles */
+.custom-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.custom-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+
+.custom-card h3 {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.custom-card:hover {
+    transform: scale(1.05);
+}
+
+.custom-btn {
+    text-decoration: none;
+    background-color: var(--primary-accent-color);
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+.custom-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Styles */
+
+/* Mobile (small screens less than 576px) */
+@media (max-width: 575.98px) {
+    .custom-card h3 {
+        font-size: 16px;
+    }
+
+    .custom-btn {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
+    .custom-membership-section {
+        padding: 10px;
+    }
+}
+
+/* Small tablets (min-width 576px to max-width 767px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .custom-card h3 {
+        font-size: 17px;
+    }
+
+    .custom-btn {
+        padding: 9px 18px;
+        font-size: 13.5px;
+    }
+
+    .custom-membership-section {
+        padding: 15px;
+    }
+}
+
+/* Tablets (min-width 768px to max-width 991px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .custom-card h3 {
+        font-size: 18px;
+    }
+
+    .custom-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .custom-membership-section {
+        padding: 20px;
+    }
+}
+
+/* Laptops and Small Desktops (min-width 992px to max-width 1199px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .custom-card h3 {
+        font-size: 19px;
+    }
+
+    .custom-btn {
+        padding: 10px 22px;
+        font-size: 15px;
+    }
+
+    .custom-membership-section {
+        padding: 25px;
+    }
+}
+
+/* Large Desktops (min-width 1200px) */
+@media (min-width: 1200px) {
+    .custom-card h3 {
+        font-size: 20px;
+    }
+
+    .custom-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+
+    .custom-membership-section {
+        padding: 30px;
+    }
+}
+
+
+/* Custom Container */
+.custom-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Page Header */
+.custom-page-header {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #444;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Content Region */
+.custom-content-region {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Ad Sections */
+.custom-horizontal-ad,
+.custom-vertical-ad {
+    width: 100%;
+    margin: 10px 0;
+    background-color: #e0e0e0;
+    height: 100px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #ccc;
+}
+
+.custom-vertical-ad {
+    height: 300px;
+}
+
+/* Article Styles */
+.custom-article {
+    width: 100%;
+}
+
+.custom-content-wrapper {
+    padding: 15px;
+}
+
+/* Image Section */
+.custom-image-section {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.custom-logo-image {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Society Information */
+.custom-society-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.custom-society-info p a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.custom-society-name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Conference Requirements & Guidelines */
+.custom-section-title {
+    font-size: 2em;
+    color: #333;
+    margin-top: 30px;
+}
+
+.custom-subheading {
+    font-size: 1.6em;
+    color: #555;
+    margin-top: 20px;
+}
+
+.custom-requirements-list,
+.custom-guidelines-list {
+    margin: 15px 20px;
+    padding-left: 15px;
+    list-style: decimal;
+    color: #444;
+}
+
+.custom-requirements-list li,
+.custom-guidelines-list li {
+    margin: 10px 0;
+}
+
+/* Responsive CSS */
+@media (max-width: 768px) {
+
+    /* For tablets and smaller screens */
+    .custom-page-header {
+        font-size: 2em;
+    }
+
+    .custom-vertical-ad {
+        height: 200px;
+    }
+
+    .custom-section-title {
+        font-size: 1.8em;
+    }
+
+    .custom-subheading {
+        font-size: 1.4em;
+    }
+
+    .custom-requirements-list,
+    .custom-guidelines-list {
+        padding-left: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* For mobile phones */
+    .custom-page-header {
+        font-size: 1.5em;
+    }
+
+    .custom-vertical-ad {
+        height: 150px;
+    }
+
+    .custom-section-title {
+        font-size: 1.6em;
+    }
+
+    .custom-subheading {
+        font-size: 1.2em;
+    }
+
+    .custom-requirements-list,
+    .custom-guidelines-list {
+        padding-left: 8px;
+    }
+
+    .custom-article {
+        padding: 10px;
+    }
+}
+
+.custom-conference-requirements {
+    text-align: justify;
+    /* Justify the text within this div */
+}
+
+.custom-requirements-list {
+    padding-left: 20px;
+    /* Optional: add padding for better readability */
+}
+
+h3.custom-subheading {
+    font-weight: 600;
+}
+
+h2.custom-section-title {
+    font-weight: bolder;
+}
+
+
+/* cards */
+/* Container for the card section */
+.cards-container {
+    padding: 20px;
+    text-align: center;
+    /* Centering the heading */
+}
+
+/* Grid layout for cards */
+/* Wrapper for each set of three cards */
+.card-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    /* Space between cards */
+}
+
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allows cards to wrap onto the next line */
+    justify-content: center;
+    /* Center the cards in the container */
+    /* gap: 20px; */
+    /* Space between cards */
+    width: 31.33%;
+}
+
+/* Individual card styles */
+.card {
+    background-color: #fff;
+    /* Background color for the card */
+    border: 2px solid #ddd;
+    /* Border around the card */
+    border-radius: 20px;
+    /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow effect */
+    max-width: 100%;
+    /* Adjust max-width for better sizing */
+    flex: 1 1 calc(33.33% - 20px);
+    /* Adjust width to fit three cards per row */
+    display: flex;
+    flex-direction: column;
+    /* Align items vertically */
+    align-items: center;
+    /* Center items horizontally */
+    padding: 20px;
+    /* Padding inside the card */
+    margin-bottom: 20px;
+    /* Add vertical gap between rows */
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    /* Smooth transition for hover effects */
+}
+
+/* Card hover effect */
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    /* Slight lift and scale on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    /* Darker shadow on hover */
+    border-color: #aaa;
+    /* Change border color on hover */
+}
+
+/* Card image styles */
+.card img {
+    width: 100%;
+    /* Makes image responsive */
+    height: 200px;
+    /* Fixed height for uniformity */
+    object-fit: cover;
+    /* Maintain aspect ratio, filling the container */
+    border-radius: 5px;
+    /* Rounded corners */
+    display: block;
+    /* Ensures no extra space below the image */
+}
+
+
+/* Card title styles */
+.card h2 {
+    font-size: 1.2em;
+    /* Title font size */
+    margin: 10px 0;
+    /* Margin around the title */
+}
+
+/* Link styles */
+.download-link {
+    margin-top: auto;
+    /* Push link to the bottom */
+    text-decoration: none;
+    /* Remove underline */
+    background-color: #0073aa;
+    /* Button color */
+    color: white;
+    /* Button text color */
+    padding: 10px 15px;
+    /* Padding inside button */
+    border-radius: 5px;
+    /* Rounded corners for button */
+    transition: background-color 0.3s;
+    /* Smooth transition */
+}
+
+.download-link:hover {
+    background-color: #005177;
+    /* Darker color on hover */
+}
+
+
+.upcoming-events-section {
+    margin: 20px 0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.events-tabs {
+    display: flex;
+    gap: 10px;
+    /* Space between tabs */
+}
+
+.tab-link {
+    cursor: pointer;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.tab-link.active {
+    background-color: #0073aa;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    /* Hide all content by default */
+    margin-top: 15px;
+}
+
+.tab-content.active {
+    display: block;
+    /* Show active tab content */
+}
+
+.event {
+    margin-bottom: 15px;
+    /* Space between events */
+}
+
+.table-caption {
+    text-align: center;
+    margin-bottom: 10px;
+    /* Space between caption and table */
+
+}
+
+.green-row {
+    background-color: #FF5E3A;
+    /* Example green background color */
+    color: white;
+}
+
+.custom-table {
+    padding: 0 20px;
+    /* 20px padding on both sides */
+    width: calc(100% - 40px);
+    /* Ensure the table width accounts for the padding */
+}
+
+/* css for journals */
+
+/* Basic styling for the grid and cards */
+.journal-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.journal-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 350px;
+    /* Adjust the maximum width of the card */
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    /* Smooth transition for hover effects */
+}
+
+/* Hover effect */
+.journal-card:hover {
+    transform: scale(1.05);
+    /* Slightly scale the card up */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    /* Increase shadow on hover */
+    background-color: #f9f9f9;
+    /* Light background color on hover */
+}
+
+.journal-card img {
+    width: 50%;
+    height: auto;
+    /* Let the height adjust based on width */
+    aspect-ratio: 3/4;
+    /* Set the aspect ratio to be taller */
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.journal-card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.journal-card-year {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.journal-card-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.journal-card-buttons a {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    color: rgb(255, 255, 255) !important;
+    background-color: #FF5E3A;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+    /* Default button font size */
+}
+
+.journal-card-buttons a.download-btn {
+    background-color: #0073aa;
+}
+
+
+.journal-card-buttons a:hover {
+    opacity: 0.8;
+    color: white
+}
+
+/* Add styling for the heading */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* Added bottom margin for spacing */
+    color: #2C3E50;
+    /* Darker color for contrast */
+    font-size: 2.5rem;
+    /* Increased font size */
+    font-weight: bold;
+    /* Bold font weight */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for depth */
+    letter-spacing: 1px;
+    /* Slightly increase letter spacing */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .journal-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on medium devices */
+    }
+
+    .journal-card-title {
+        font-size: 1.1rem;
+        /* Slightly smaller title font on medium devices */
+    }
+}
+
+@media (max-width: 768px) {
+    .journal-card-grid {
+        grid-template-columns: 1fr;
+        /* 1 column on small devices */
+        padding: 10px;
+        /* Less padding on smaller devices */
+    }
+
+    .journal-card {
+        max-width: none;
+        /* Remove max-width for full width on small devices */
+    }
+
+    .journal-card-title {
+        font-size: 1rem;
+        /* Smaller title font on small devices */
+    }
+
+    .journal-card-buttons a {
+        padding: 6px 12px;
+        /* Smaller button size on small devices */
+        font-size: 0.8rem;
+        /* Smaller button font size */
+    }
+}
+
+@media (max-width: 480px) {
+    .journal-card img {
+        aspect-ratio: 1/1;
+        /* Square aspect ratio for very small devices */
+    }
+}
+
+/* CSS for the loader */
+/* Spinner Loader Styles */
+.spinner {
+    display: none;
+    /* Initially hidden */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    /* Light gray border */
+    border-top: 8px solid #3498db;
+    /* Blue border on top */
+    border-radius: 50%;
+    width: 60px;
+    /* Loader size */
+    height: 60px;
+    /* Loader size */
+    animation: spin 1s linear infinite;
+    /* Spinning animation */
+    z-index: 9999;
+    /* Make sure it stays on top */
+}
+
+/* Keyframes for spinning animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Body Blur Effect */
+.body-blur {
+    filter: blur(5px);
+    /* Adjust blur strength */
+    pointer-events: none;
+    /* Prevent interaction with blurred content */
+}
+
+.ttl {
+    border-bottom: 2px solid #FF5E3A;
+    /* Change the color as needed */
+    padding-bottom: 4px;
+    /* Space between text and underline */
+    display: inline-block;
+    /* Ensures the underline only covers the text */
+}
+
+
+.custom-journal-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+
+    line-height: 1.6;
+    text-align: justify;
+    /* Justify the text content */
+}
+
+.custom-journal-content img {
+    width: 100%;
+    max-width: 816px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.custom-journal-content h3 {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.custom-journal-content p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.custom-journal-content a {
+    color: blue;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .custom-journal-content h3 {
+        font-size: 20px;
+    }
+
+    .custom-journal-content p {
+        font-size: 14px;
+    }
+}
+
+
+/* Footer Region */
+.region-footer {
+    background-color: #fff;
+    padding: 20px;
+}
+
+/* Block Titles */
+.block-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Collaboration Links */
+.view-publicity {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.views-row {
+    flex: 1 1 calc(33.333% - 15px);
+    /* Three items per row with space */
+    min-width: 200px;
+    /* Ensure a minimum width */
+}
+
+
+.views-field {
+    text-align: center;
+}
+
+.field-content {
+    margin-bottom: 15px;
+}
+
+/* Images */
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Newsletter Section */
+.newsletter-footer-block {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+}
+
+.title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+.email-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.email-input:focus {
+    outline: none;
+    border-color: #007bff;
+    /* Change border color on focus */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .views-row {
+        flex: 1 1 100%;
+        /* Stack on smaller screens */
+    }
+}
+
+/* CSS for BuddyPress groups preview */
+.buddypress-groups-container {
+    margin: 20px 0;
+    /* Margin around the container */
+    text-align: center;
+    /* Center text within the container */
+}
+
+.buddypress-groups-heading {
+    font-size: 24px;
+    /* Heading font size */
+    margin-bottom: 15px;
+    /* Space below heading */
+}
+
+.buddypress-groups-list {
+    list-style-type: none;
+    /* Remove bullet points */
+    padding: 0;
+    /* Remove padding */
+    display: flex;
+    /* Use flexbox for layout */
+    justify-content: center;
+    /* Center items horizontally */
+    flex-wrap: wrap;
+    /* Allow items to wrap */
+}
+
+.buddypress-group-item {
+    background: #f9f9f9;
+    /* Background color for card */
+    border: 1px solid #ddd;
+    /* Border around card */
+    border-radius: 8px;
+    /* Rounded corners */
+    overflow: hidden;
+    /* Prevent overflow */
+    width: 30%;
+    /* Fixed width for each card */
+    margin: 10px;
+    /* Space between cards */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    transition: transform 0.2s;
+    /* Smooth scaling on hover */
+}
+
+.buddypress-group-item:hover {
+    transform: scale(1.02);
+    /* Scale up on hover */
+}
+
+.group-cover-photo {
+    height: 150px;
+    /* Fixed height for the cover photo */
+    overflow: hidden;
+    /* Hide overflow */
+}
+
+.group-cover-img {
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    object-fit: cover;
+    /* Cover image without distortion */
+}
+
+.view-all-groups {
+    text-align: center;
+    /* Center align the button */
+    margin: 20px 0;
+    /* Margin around the button */
+}
+
+.view-all-groups .button {
+    background-color: #0073aa;
+    /* Button background color */
+    color: #fff;
+    /* Button text color */
+    padding: 10px 15px;
+    /* Padding for the button */
+    border: none;
+    /* Remove border */
+    border-radius: 5px;
+    /* Rounded corners */
+    text-decoration: none;
+    /* Remove underline */
+    transition: background-color 0.3s;
+    /* Smooth background transition */
+}
+
+.view-all-groups .button:hover {
+    background-color: #005177;
+    /* Darker shade on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .buddypress-group-item {
+        width: 45%;
+        /* Adjust width for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .buddypress-group-item {
+        width: 100%;
+        /* Full width for mobile devices */
+    }
+
+    .buddypress-groups-heading {
+        font-size: 20px;
+        /* Smaller heading font size on mobile */
+    }
+
+    .view-all-groups .button {
+        padding: 8px 12px;
+        /* Adjust padding for buttons on mobile */
+    }
+}
+
+.events-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: -10px;
+    /* For spacing between cards */
+}
+
+.event-card {
+    background-color: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 calc(33.333% - 20px);
+    /* Three cards per row, adjust as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+
+.event-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.event-title {
+    font-size: 1.5rem;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.event-date {
+    font-size: 1rem;
+    color: #777;
+    margin: 10px 0;
+}
+
+.event-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #0073aa;
+    /* WordPress primary color */
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.event-button:hover {
+    background-color: #005177;
+    /* Darker shade for hover */
+}
+
+.tribe-events-calendar-list__view-all {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tribe-events-calendar-list__view-all a {
+    padding: 10px 20px;
+    background-color: #0073aa;
+    /* WordPress primary color */
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.tribe-events-calendar-list__view-all a:hover {
+    background-color: #005177;
+    /* Darker shade for hover */
+}
+
+.events-heading {
+    font-size: 2rem;
+    /* Adjust the size as needed */
+    margin: 20px 0;
+    /* Space above and below */
+    text-align: center;
+    /* Center the heading */
+    color: #333;
+    /* Change to your desired color */
+}
+
+.event-description {
+    font-size: 14px;
+    /* Adjust font size */
+    color: #555;
+    /* Change text color */
+    margin: 10px 0;
+    /* Add spacing above and below the description */
+    max-height: 100px;
+    /* Set a maximum height to restrict overflow */
+    overflow: hidden;
+    /* Hide overflow text */
+    text-overflow: ellipsis;
+    /* Optional: adds ellipsis (...) for overflow */
+}
+
+
+/* newsleter css */
+.newsletter-up-to-date {
+    background-color: #FF5E3A;
+    /* Orange background */
+    padding: 20px;
+    display: flex;
+    /* Use flexbox for layout */
+    justify-content: space-between;
+    /* Space between title and input section */
+    align-items: center;
+    /* Align items in the center vertically */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    max-width: 100%;
+    /* Limit max width for better layout */
+    margin: 20px auto;
+    /* Center the container */
+    width: 90%;
+    /* Make container responsive */
+}
+
+.newsletter-title {
+    color: #fff;
+    /* Change text color to white */
+    font-size: 24px;
+    /* Slightly larger font size */
+    font-weight: bold;
+    margin-right: 20px;
+    /* Space between title and input */
+}
+
+.input-container {
+    display: flex;
+    /* Flexbox for input and button */
+    align-items: center;
+    /* Align items in the center vertically */
+}
+
+input[type="email"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    /* Fixed width for input */
+    margin-right: 10px;
+    /* Space between input and button */
+    transition: border-color 0.3s;
+    /* Smooth border color change */
+}
+
+input[type="email"]:focus {
+    border-color: #000;
+    /* Darker border on focus */
+    outline: none;
+    /* Remove default outline */
+}
+
+.nl-button {
+    padding: 10px 20px;
+    background-color: transparent;
+    /* No background initially */
+    color: #fff;
+    /* White text */
+    border: 2px solid #fff;
+    /* White border */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    /* Smooth color transitions */
+}
+
+.nl-button:hover {
+    background-color: #0073aa;
+    /* Black background on hover */
+    color: #fff;
+    /* White text on hover */
+}
+
+@media (max-width: 600px) {
+    .newsletter-title {
+        font-size: 20px;
+        /* Smaller title on mobile */
+        margin-right: 10px;
+        /* Reduce space on mobile */
+    }
+
+    input[type="email"] {
+        width: 150px;
+        /* Smaller width for input on mobile */
+    }
+
+    .nl-button {
+        padding: 8px 15px;
+        /* Smaller button on mobile */
+    }
+}
+
+/* form fieldsarrrangement */
+
+/* Apply flexbox to the parent form container */
+form#pmpro_form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Reorder each fieldset explicitly */
+fieldset#pmpro_billing_address_fields {
+    order: 1;
+}
+
+fieldset#pmpro_form_fieldset-background-information {
+    order: 2;
+}
+
+fieldset#pmpro_form_fieldset-rc-ad-hoc-membership-information {
+    order: 3;
+}
+
+fieldset#pmpro_payment_information_fields {
+    order: 4;
+}
+
+div#pmpro_message_bottom {
+    order: 5;
+}
+
+.pmpro_form_submit {
+    order: 6;
+}
+
+input#bconfirmemail {
+    width: 100%;
+}
+
+input#bemail {
+    width: 100%;
+}
+
+/* Member Cards Container */
+/* Container for managing cards */
+/* Container for managing cards */
+.managing-committee-member-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+/* Member Card */
+.managing-committee-card {
+    display: flex;
+    width: 600px;
+    height: 300px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    color: #333;
+    /* Default text color */
+    transition: color 0.3s ease;
+    /* Smooth transition for text color */
+}
+
+/* Add hover effect to scale the card */
+.managing-committee-card:hover {
+    transform: scale(1.05);
+}
+
+/* Gradient animation effect on hover */
+.managing-committee-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #595A97, #3E4C73);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+}
+
+/* Reverse the direction of the gradient for right-side cards */
+.managing-committee-card.right-side::before {
+    transform-origin: right;
+}
+
+/* Trigger the gradient animation on hover */
+.managing-committee-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Change text color to white when the card is hovered */
+.managing-committee-card:hover {
+    color: white;
+    /* Change text color to white on hover */
+}
+
+/* Member Image */
+.managing-committee-member-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 20px;
+}
+
+/* Card Content */
+.managing-committee-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 170px);
+    /* Adjusting for image space */
+}
+
+.managing-committee-card-content h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.managing-committee-card-content p {
+    margin: 5px 0;
+    color: inherit;
+    /* Inherit text color from parent */
+}
+
+/* Contact Info Styling */
+.managing-committee-contact-info {
+    margin-top: 10px;
+}
+
+.managing-committee-email,
+.managing-committee-contact {
+    font-size: 14px;
+    color: inherit;
+    /* Inherit text color from parent */
+}
+
+.managing-committee-email a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.managing-committee-email a:hover {
+    text-decoration: underline;
+}
+
+/* Popup */
+.managing-committee-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.managing-committee-popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+}
+
+.managing-committee-popup-content img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 0 auto 20px;
+}
+
+.managing-committee-popup-content h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.managing-committee-popup-content p {
+    margin: 5px 0;
+    color: #555;
+}
+
+/* Popup Contact Info */
+.managing-committee-popup-content .managing-committee-contact-info {
+    margin-top: 10px;
+}
+
+.managing-committee-popup-content .managing-committee-email,
+.managing-committee-popup-content .managing-committee-contact {
+    font-size: 14px;
+    color: #333;
+}
+
+.managing-committee-card:hover h2 {
+    color: white; /* Change <h2> color to white on hover */
+}
+/* Close Button */
+.managing-committee-popup-close {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Load More Button */
+.managing-committee-load-more-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.managing-committee-load-more-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Load More Button */
+.managing-committee-load-more-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.managing-committee-load-more-btn:hover {
+    background-color: #0056b3;
+}
+
+this is css
+
+/* Load More Button */
+.managing-committee-load-more-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.managing-committee-load-more-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Style for the Load More button */
+.load-more-btn {
+    padding: 12px 24px;
+    /* Add padding for a more clickable area */
+    background-color: #007bff;
+    /* Blue background color */
+    color: white;
+    /* White text */
+    border: none;
+    /* Remove default border */
+    border-radius: 8px;
+    /* Rounded corners */
+    font-size: 16px;
+    /* Make the text size a bit larger */
+    cursor: pointer;
+    /* Change cursor to a pointer on hover */
+    text-transform: uppercase;
+    /* Capitalize button text */
+    letter-spacing: 1px;
+    /* Add space between letters */
+    transition: all 0.3s ease;
+    /* Smooth transition for hover effect */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+}
+
+/* Hover effect for the button */
+.load-more-btn:hover {
+    background-color: #0056b3;
+    /* Darken the background on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect */
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+    /* Enhance shadow on hover */
+}
+
+/* Focus effect for accessibility */
+.load-more-btn:focus {
+    outline: none;
+    /* Remove default outline */
+    box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.6);
+    /* Add a blue outline on focus */
+}
+
+/* Loading state style */
+.load-more-btn:disabled {
+    background-color: #d6d6d6;
+    /* Gray background when button is disabled */
+    color: #aaa;
+    /* Gray text when disabled */
+    cursor: not-allowed;
+    /* Show a not-allowed cursor */
+    box-shadow: none;
+    /* Remove shadow */
+}
+
+/* Spinner style */
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    border-top-color: #333;
+    /* Spinner color */
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    margin-left: 8px;
+    /* Space between button text and spinner */
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Style to disable button while loading */
+.loading-button {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Faq CSS */
+
+.accordion-databox {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    /* Change cursor to pointer to show it's clickable */
+}
+/* Hover effect for each FAQ card */
+.accordion-databox:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    /* Darker shadow on hover */
+    transform: translateY(-5px);
+    /* Slight upward movement */
+    background-color: #f1f1f1;
+    /* Change background color slightly */
+}
+
+/* Section Title */
+.section-title {
+    text-align: center;
+    /* Center align the title */
+    margin-bottom: 40px;
+    /* Add margin for spacing */
+}
+
+.section-title h4 {
+    font-size: 2rem;
+    /* Set an appropriate font size */
+    font-weight: 700;
+    /* Make the font bold */
+    color: #333;
+    /* Dark color for better contrast */
+    text-transform: uppercase;
+    /* Capitalize the text */
+    letter-spacing: 1px;
+    /* Add slight spacing between letters */
+    margin: 0;
+    /* Remove any default margin */
+}
+
+.section-title h4 span {
+    color: #0073aa;
+    /* Highlight the 'QUESTIONS' part with blue color */
+    font-size: 1.8rem;
+    /* Make the span text slightly smaller */
+}
+
+.faq-item-left {
+    animation: slide-in-left 0.5s ease-out;
+    transform: translateY(-30px);
+    /* Moves the left items slightly higher */
+}
+
+/* Right items will stay at normal position */
+.faq-item-right {
+    animation: slide-in-right 0.5s ease-out;
+}
+
+.faq-section {
+    padding: 50px 0;
+    
+    /* Light blue background */
+}
+
+.faq-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.grid-item {
+    width: 48%;
+    margin-bottom: 20px;
+}
+
+/* Main FAQ box styling */
+.accordion-databox {
+    background-color: #ffffff;
+    border: none;
+    /* No border box for individual questions */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Hover effect for each FAQ box */
+.accordion-databox:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* FAQ Question styling with blue background */
+.faq-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    /* White text for questions */
+    background-color: #0073aa;
+    /* Blue background for question */
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+/* Icon inside the question */
+.faq-title i {
+    margin-right: 10px;
+}
+
+/* FAQ Answer styling */
+.accordion-data {
+    background-color: #f8f8f8;
+    /* Light gray background for the answer */
+    padding: 15px;
+    border-radius: 5px;
+    display: none;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Show the answer when the question is clicked */
+.accordion-trigger.active+.accordion-data {
+    display: block;
+}
+
+/* Style for FAQ Answer when expanded */
+.accordion-row {
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+/* Separator after each accordion row */
+.accordion-row:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0;
+    /* Light gray border for separator */
+    margin-bottom: 20px;
+}
+
+/* Animation for sliding answers */
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.accordion-data {
+    animation: slide-in 0.3s ease-out;
+}
+
+/* Indicator styling for open/close */
+.indicator {
+    font-weight: bold;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Media Queries for responsive design */
+@media (max-width: 1200px) {
+    .grid-item {
+        width: 48%;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-item {
+        width: 100%;
+    }
+
+    /* Adjust FAQ title and content size for small devices */
+    .faq-title {
+        font-size: 1.2rem;
+        padding: 12px;
+    }
+
+    .accordion-data {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    /* Change grid item layout for smaller screens */
+    .faq-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .indicator {
+        font-size: 1.2rem;
+        /* Make indicator larger for mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .faq-title {
+        font-size: 1.1rem;
+        padding: 10px;
+    }
+
+    .accordion-data {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+
+    .indicator {
+        font-size: 1rem;
+        /* Adjust for very small screens */
+    }
+}
+
+//class for status
+.pending-review {
+    background-color: #fce5e5; /* Light red background for pending status */
+    color: #d9534f; /* Red text color */
+}
+
+/* Edited Review */
+.edited-review {
+    background-color: #fff3cd; /* Light yellow background for edited status */
+    color: #f0ad4e; /* Yellow text color */
+}
+
+/* Approved Review */
+.approved-review {
+    background-color: #d4edda; /* Light green background for approved status */
+    color: #28a745; /* Green text color */
+}
+
+/* Rejected Review */
+.rejected-review {
+    background-color: #f8d7da; /* Light pink background for rejected status */
+    color: #dc3545; /* Red text color */
+}
+.no-certificate {
+    color: white !important;
+    font-weight: bold !important;
+    background-color: #dc3545 !important; /* Red background */
+    padding: 5px 10px !important; /* Padding for better spacing */
+    border-radius: 5px !important; /* Rounded corners */
+    text-align: center !important; /* Center text */
+    display: inline-flex !important; /* Align icon and text horizontally */
+    align-items: center !important; /* Vertical alignment */
+}
+
+.no-certificate::before {
+    content: '\2716'; /* Unicode for a cross mark (❌) */
+    font-size: 18px; /* Icon size */
+    margin-right: 8px; /* Space between icon and text */
+    color: white; /* White color for the icon */
+}
+
+.download-certificate {
+    display: inline-block !important;
+    background-color: #007bff !important; /* Blue background */
+    color: #fff !important; /* White text */
+    font-weight: bold !important;
+    text-align: center !important;
+    padding: 8px 15px !important; /* Padding for button-like appearance */
+    border-radius: 5px !important; /* Rounded corners */
+    text-decoration: none !important; /* Remove underline if it's a link */
+    border: none !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s ease-in-out !important;
+    white-space: nowrap !important; /* Prevent text from wrapping */
+}
+
+.download-certificate:hover {
+    background-color: #0056b3 !important; /* Darker blue on hover */
+}
+
+.download-certificate::before {
+    content: '\1F4E5'; /* Unicode for download arrow 📥 */
+    font-size: 16px; 
+    margin-right: 8px; /* Space between icon and text */
+    display: inline-block;
+    vertical-align: middle;
+}

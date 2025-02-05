@@ -144,7 +144,7 @@ function show_button_for_group_4_user()
         if (in_array(4, $user_groups)) {
             // Display the button before the notification panel
             ?>
-               <script type="text/javascript">
+                <script type="text/javascript">
                     jQuery(document).ready(function ($) {
                         // Store the site URL in a variable
                         var siteUrl = "<?php echo esc_url(get_site_url()); ?>";
@@ -233,9 +233,11 @@ function abstract_submission_form()
 
                 <input type="submit" name="submit_abstract" value="Submit Abstract">
             </form>
-            <a href="<?php echo site_url('/abstract-list/'); ?>" class="view-abstracts-button">View Your Abstracts</a>
-            <a href="<?php echo site_url('/co-author-abstract-list/'); ?>" class="view-abstracts-button">View your Co-Authorship</a>
-
+            <div class="listing-buttons">
+                <a href="<?php echo site_url('/abstract-list/'); ?>" class="view-abstracts-button">View Your Abstracts</a>
+                <a href="<?php echo site_url('/co-author-abstract-list/'); ?>" class="view-abstracts-button">View your
+                    Co-Authorship</a>
+            </div>
             <script>
                 // JavaScript to handle the dynamic addition of co-author fields (name + membership ID)
                 document.getElementById('add-co-author').addEventListener('click', function () {
@@ -248,36 +250,107 @@ function abstract_submission_form()
                 });
             </script>
             <style>
-                .view-abstracts-button {
-                    background: #FB8B25;
-                    color: #fff;
-                    border: none;
-                    border-radius: 0px;
+                /* Form Styling */
+                #abstract-form {
+                    background-color: #f9f9f9;
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                #abstract-form label {
+                    display: block;
                     font-size: 16px;
-                    font-family: oswald !important;
+                    font-weight: 600;
+                    margin-bottom: 8px;
+                    margin-top: 20px;
+                }
+
+                #abstract-form input[type="text"],
+                #abstract-form input[type="email"],
+                #abstract-form input[type="hidden"],
+                #abstract-form select,
+                #abstract-form textarea {
+                    width: 100%;
+                    padding: 10px;
+                    margin-bottom: 12px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    box-sizing: border-box;
+                }
+
+                #abstract-form input[type="text"]:focus,
+                #abstract-form input[type="email"]:focus,
+                #abstract-form select:focus,
+                #abstract-form textarea:focus {
+                    outline: none;
+                    border-color: rgb(227, 100, 20);
+                }
+
+                #abstract-form textarea {
+                    height: 150px;
+                    resize: vertical;
+                }
+
+                #add-co-author {
+                    background-color: rgb(227, 100, 20);
+                    color: white;
+                    padding: 8px 16px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    transition: background-color 0.3s ease;
+                }
+
+                #add-co-author:hover {
+                    background-color: rgb(187, 80, 20);
+                }
+
+                /* Buttons Styling */
+                .listing-buttons {
+                    display: flex;
+                    justify-content: center;
+                    gap: 15px;
+                    margin-top: 20px;
+                }
+
+                .view-abstracts-button {
+                    background-color: rgb(227, 100, 20);
+                    color: white !important;
+                    padding: 12px 25px;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    transition: background-color 0.3s ease, transform 0.2s ease;
                 }
 
                 .view-abstracts-button:hover {
-                    background: #fff;
-                    color: #FB8B25;
+                    background-color: #FB8B24 !important;
+                    transform: scale(1.05);
                 }
 
-                #co-authors-wrapper {
-                    margin-bottom: 10px;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
+                .view-abstracts-button:active {
+                    background-color: rgb(147, 60, 20);
                 }
 
+                /* Co-Authors Fields Styling */
                 .co-author-fields {
                     display: flex;
                     gap: 10px;
+                    margin-bottom: 15px;
                 }
 
-                .co-author-fields input {
+                .co-author-fields input[type="text"] {
                     width: 48%;
-                    /* Makes each input field 50% width */
-                    box-sizing: border-box;
+                }
+
+                .co-authors-wrapper {
+                    margin-bottom: 20px;
                 }
             </style>
             <?php
@@ -572,6 +645,7 @@ function display_user_abstract_details()
                             <th>Reviewer Status</th>
                             <th>Secretary Status</th>
                             <th>Certificate</th>
+                            <th> Download Abstract </th>
                         </tr>
                     </thead>';
         $output .= '<tbody>';
@@ -591,10 +665,12 @@ function display_user_abstract_details()
             if (!empty($abstract->certificate_issued)) {
                 $upload_dir = wp_upload_dir();
                 $certificate_url = esc_url($upload_dir['baseurl'] . '/certificates/abstract_' . $abstract->id . '_certificate.pdf');
-                $output .= '<td><a href="' . esc_url($certificate_url) . '" download class="button">Download Certificate</a></td>';
+                $output .= '<td><a href="' . esc_url($certificate_url) . '" download class="button download-certificate">Download Certificate</a></td>';
             } else {
                 $output .= '<td>No certificate issued yet</td>';
             }
+            // Add the 'Download Abstract' button (Word file)
+            $output .= '<td><a href="' . esc_url(add_query_arg(['download_abstract' => $abstract->id], get_permalink())) . '" class="button download-certificate">Download Abstract</a></td>';
 
             $output .= '</tr>';
         }
@@ -612,7 +688,85 @@ function display_user_abstract_details()
 
 // Register the shortcode [user_abstract_details]
 add_shortcode('user_abstract_details', 'display_user_abstract_details');
+function handle_abstract_download()
+{
+    if (isset($_GET['download_abstract'])) {
+        $abstract_id = intval($_GET['download_abstract']);
 
+        // Load the abstract details from the database
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'abstract_submissions';
+        $abstract = $wpdb->get_row($wpdb->prepare(
+            "SELECT author_name, co_authors, abstract_title, abstract_description 
+             FROM $table_name WHERE id = %d",
+            $abstract_id
+        ));
+
+        if ($abstract) {
+            // Include PHPWord library
+            require_once ABSPATH . 'wp-content/vendor/autoload.php';
+
+            // Create a new PHPWord object
+            $phpWord = new \PhpOffice\PhpWord\PhpWord();
+            $section = $phpWord->addSection();
+
+            // Ensure the document allows modifications
+            $phpWord->getSettings()->setUpdateFields(true);
+
+            // Title Styling
+            $titleStyle = ['bold' => true, 'size' => 20, 'color' => '0000FF']; // Blue color, large text
+            $section->addText("Abstract Details", $titleStyle);
+            $section->addTextBreak(2); // Add some space
+
+            // Styling for headings and content
+            $headingStyle = ['bold' => true, 'size' => 14, 'color' => '333333']; // Dark gray headings
+            $contentStyle = ['size' => 12, 'color' => '000000']; // Black normal text
+
+            // Add abstract details
+            $section->addText("Abstract Title:", $headingStyle);
+            $section->addText($abstract->abstract_title, $contentStyle);
+            $section->addTextBreak(1); // Add spacing
+
+            $section->addText("Author Name:", $headingStyle);
+            $section->addText($abstract->author_name, $contentStyle);
+            $section->addTextBreak(1);
+
+            $section->addText("Co-Authors:", $headingStyle);
+            $section->addText($abstract->co_authors, $contentStyle);
+            $section->addTextBreak(1);
+
+            $section->addText("Abstract Description:", $headingStyle);
+            $section->addText($abstract->abstract_description, ['size' => 12, 'color' => '000000', 'italic' => true]);
+            $section->addTextBreak(2); // Extra spacing at the end
+
+            // Define the file path
+            $file_path = sys_get_temp_dir() . '/abstract_' . $abstract_id . '.docx';
+
+            // Save the document properly using the Writer
+            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+            $objWriter->save($file_path);
+
+            // Clear output buffer to avoid corruption
+            ob_clean();
+
+            // Send headers for download
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+            header('Content-Disposition: attachment; filename="abstract_' . $abstract_id . '.docx"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file_path));
+            readfile($file_path);
+            unlink($file_path); // Delete the file after download
+
+            exit;
+        }
+    }
+}
+
+// Hook to handle the download request
+add_action('template_redirect', 'handle_abstract_download');
 // Hook to add a custom menu page in the admin panel
 function add_approver_page()
 {
@@ -665,9 +819,10 @@ function display_received_abstracts()
         // Table headers: note that we now have separate columns for each co-author and its certificate status.
         echo '<thead>
                 <tr>
-                    <th>Abstract ID</th>
-                    <th>Title</th>
+                    <th>Sr no.</th>
                     <th>Author</th>
+                    <th>Title</th>
+                    
                     <th>Co-Author</th>
                     <th>Co-Author Certificate Status</th>
                     <th>Reviewer Status</th>
@@ -677,7 +832,7 @@ function display_received_abstracts()
                 </tr>
               </thead>';
         echo '<tbody>';
-
+$sr_no=1;
         foreach ($results as $result) {
             $abstract_id = $result->id;
             $abstract_title = $result->abstract_title;
@@ -691,37 +846,59 @@ function display_received_abstracts()
             $co_authors_array = array_map('trim', explode(',', $co_authors));
             $co_authors_ids_array = array_map('trim', explode(',', $co_authors_ids));
             $num_coauthors = count($co_authors_array);
-
+            $pending_class = ($reviewer_status == 'Pending for review') ? 'pending-review' : '';
+            $approved_class = ($reviewer_status == 'Approved') ? 'approved-review' : '';
+            $rejected_class = ($reviewer_status == 'Rejected') ? 'rejected-review' : '';
+            $edited_class = ($reviewer_status == 'Edited') ? 'edited-review' : '';
+            $review_class = match ($reviewer_status) {
+                'Approved' => 'approved-review',
+                'Pending for review' => 'pending-review',
+                'Edited' => 'edited-review',
+                'Rejected' => 'rejected-review',
+                default => '',
+            };
+            $secratery_class = match ($secretary_status) {
+                'Approved' => 'secretary-approved',
+                'Pending for review' => 'secretary-pending',
+                'Edited' => 'secretary-edited',
+                'Rejected' => 'secretary-rejected',
+                default => '',
+            };
+            
             // If there is at least one co-author, display them in separate rows.
             if ($num_coauthors > 0) {
                 // For the first co-author, output a row with all abstract details.
                 // Use rowspan for abstract details if there are multiple co-authors.
                 echo '<tr>';
-                echo '<td rowspan="' . $num_coauthors . '">' . esc_html($abstract_id) . '</td>';
-                echo '<td rowspan="' . $num_coauthors . '">' . esc_html($abstract_title) . '</td>';
+                echo '<td rowspan="' . $num_coauthors . '">' . $sr_no++ . '</td>';
                 echo '<td rowspan="' . $num_coauthors . '">' . esc_html($author_name) . '</td>';
+                echo '<td rowspan="' . $num_coauthors . '">' . esc_html($abstract_title) . '</td>';
+              
 
                 // Get certificate status for the first co-author.
                 $first_co_author = $co_authors_array[0];
                 $first_co_author_id = $co_authors_ids_array[0];
                 $first_status = get_co_author_certificate_status($abstract_id, $first_co_author_id);
-
-                echo '<td>' . esc_html($first_co_author) . '</td>';
-                echo '<td>' . esc_html($first_status) . '</td>';
+                $class = ($first_status == 'Valid') ? 'valid-member' : 'invalid-member';
+                echo '<td class="' . esc_attr($class) . '">' . esc_html($first_co_author) . '</td>';
+                echo '<td class="' . esc_attr($class) . '">' . esc_html($first_status) . '</td>';
 
                 // The reviewer, secretary, action, and update cells also get a rowspan.
-                echo '<td rowspan="' . $num_coauthors . '">' . esc_html($reviewer_status) . '</td>';
-                echo '<td rowspan="' . $num_coauthors . '">' . esc_html($secretary_status) . '</td>';
+                echo '<td  class="' . esc_attr($review_class) . '"rowspan="' . $num_coauthors . '">' . esc_html($reviewer_status) . '</td>';
+                echo '<td  class="' . esc_attr($secratery_class) . '"rowspan="' . $num_coauthors . '">' . esc_html($secretary_status) . '</td>';
                 echo '<td rowspan="' . $num_coauthors . '">
-                        <a href="' . esc_url(admin_url('admin.php?page=view_abstract&id=' . $abstract_id)) . '" class="button">Download Doc File</a>
+                        <a href="' . esc_url(admin_url('admin.php?page=view_abstract&id=' . $abstract_id)) . '" class="button download-certificate">Download Doc File</a>
                       </td>';
                 echo '<td rowspan="' . $num_coauthors . '">
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=pending&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button">Pending Review</a>
-                            <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=approve&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button">Approve</a>
-                            <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=reject&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button">Reject</a>
-                            <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=edit&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button">Edit</a>
-                        </div>
+                      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=pending&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button ' . esc_attr($pending_class) . '">Pending Review</a>
+        
+        <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=approve&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button ' . esc_attr($approved_class) . '">Approve</a>
+        
+        <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=reject&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button ' . esc_attr($rejected_class) . '">Reject</a>
+        
+        <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=edit&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button ' . esc_attr($edited_class) . '">Edit</a>
+    </div>
                       </td>';
                 echo '</tr>';
 
@@ -731,33 +908,37 @@ function display_received_abstracts()
                         $co_author = $co_authors_array[$i];
                         $co_author_id = $co_authors_ids_array[$i];
                         $status = get_co_author_certificate_status($abstract_id, $co_author_id);
-
+                        $class = ($status == 'Valid') ? 'valid-member' : 'invalid-member';
                         echo '<tr>';
-                        echo '<td>' . esc_html($co_author) . '</td>';
-                        echo '<td>' . esc_html($status) . '</td>';
+                        echo '<td class="' . esc_attr($class) . '">' . esc_html($co_author) . '</td>';
+                        echo'<td class="' . esc_attr($class) . '">' . esc_html($status) . '</td>';
                         echo '</tr>';
                     }
                 }
             } else {
                 // If there are no co-authors, output a single row with blank co-author cells.
                 echo '<tr>';
-                echo '<td>' . esc_html($abstract_id) . '</td>';
-                echo '<td>' . esc_html($abstract_title) . '</td>';
+                echo '<td>' . $sr_no++ . '</td>';
                 echo '<td>' . esc_html($author_name) . '</td>';
+                echo '<td>' . esc_html($abstract_title) . '</td>';
+                
                 echo '<td colspan="2">No co-authors</td>';
-                echo '<td>' . esc_html($reviewer_status) . '</td>';
-                echo '<td>' . esc_html($secretary_status) . '</td>';
+                echo '<td class="' . esc_attr($review_class) . '">'  . esc_html($reviewer_status) . '</td>';
+                echo '<td class="' . esc_attr($secratery_class) . '">' . esc_html($secretary_status) . '</td>';
                 echo '<td>
-                        <a href="' . esc_url(admin_url('admin.php?page=view_abstract&id=' . $abstract_id)) . '" class="button">Download Doc File</a>
+                        <a href="' . esc_url(admin_url('admin.php?page=view_abstract&id=' . $abstract_id)) . '" class="button download-certificate">Download Doc File</a>
                       </td>';
                 echo '<td>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=pending&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button">Pending Review</a>
-                            <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=approve&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button">Approve</a>
-                            <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=reject&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button">Reject</a>
-                            <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=edit&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button">Edit</a>
-                        </div>
-                      </td>';
+                      <div style="display: flex; flex-direction: column; gap: 10px;">
+                          <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=pending&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button ' . esc_attr($pending_class) . '">Pending Review</a>
+                          
+                          <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=approve&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button ' . esc_attr($approved_class) . '">Approve</a>
+                          
+                          <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=reject&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button ' . esc_attr($rejected_class) . '">Reject</a>
+                          
+                          <a href="' . esc_url(admin_url('admin-post.php?action=update_abstract_status&status=edit&id=' . $abstract_id . '&redirect_to=view_abstract')) . '" class="button ' . esc_attr($edited_class) . '">Edit</a>
+                      </div>
+                  </td>';
                 echo '</tr>';
             }
             // Add a separator row after each abstract's rows.
@@ -831,6 +1012,36 @@ function view_abstract_page()
         $abstract = $wpdb->get_row($sql);
 
         if ($abstract) {
+            // Check if edit mode is enabled
+            $is_editable = isset($_GET['rc_edit']) && $_GET['rc_edit'] == 'true';
+
+            // Handle form submission if it's in edit mode
+            if (isset($_POST['update_abst'])) {
+                // Sanitize and update the abstract content
+                $updated_abstract_title = sanitize_text_field($_POST['abstract_title']);
+                // $updated_author_name = sanitize_text_field($_POST['author_name']);
+                // $updated_co_authors = sanitize_text_field($_POST['co_authors']);
+                $updated_abstract_description = sanitize_textarea_field($_POST['abstract_description']);
+
+                // Update the abstract in the database
+                $wpdb->update(
+                    $table_name,
+                    [
+                        'abstract_title' => $updated_abstract_title,
+                        // 'author_name' => $updated_author_name,
+                        // 'co_authors' => $updated_co_authors,
+                        'abstract_description' => $updated_abstract_description
+                    ],
+                    ['id' => $abstract_id],
+                    ['%s', '%s', '%s', '%s'],
+                    ['%d']
+                );
+
+                // Redirect to avoid resubmission
+                wp_redirect(add_query_arg('id', $abstract_id, $_SERVER['REQUEST_URI']));
+                exit;
+            }
+
             // If DOC file is requested
             if (isset($_GET['download']) && $_GET['download'] == 'doc') {
                 // Load PHPWord using Composer's autoload
@@ -891,37 +1102,50 @@ function view_abstract_page()
                 unlink($file_path); // Delete the file after download
 
                 exit;
-
-
             }
 
             ?>
+
                 <div class="wrap">
                     <h1>View Abstract: <?php echo esc_html($abstract->abstract_title); ?></h1>
 
-                    <p><strong>Author Name:</strong>
-                        <input type="text" value="<?php echo esc_html($abstract->author_name); ?>" readonly
-                            style="border: none; background: none; font-size: 16px; font-weight: normal;">
-                    </p>
+                    <form method="POST">
+                        <p><strong>Author Name:</strong>
+                            <input type="text" name="author_name" value="<?php echo esc_html($abstract->author_name); ?>" <?php echo $is_editable ? '' : 'readonly'; ?>
+                                style="border: none; background: none; font-size: 16px; font-weight: normal;">
+                        </p>
 
-                    <p><strong>Co-Authors:</strong>
-                        <input type="text" value="<?php echo esc_html($abstract->co_authors); ?>" readonly
-                            style="border: none; background: none; font-size: 16px; font-weight: normal;">
-                    </p>
+                        <p><strong>Co-Authors:</strong>
+                            <input type="text" name="co_authors" value="<?php echo esc_html($abstract->co_authors); ?>" <?php echo $is_editable ? '' : 'readonly'; ?>
+                                style="border: none; background: none; font-size: 16px; font-weight: normal;">
+                        </p>
 
-                    <p><strong>Abstract Title:</strong>
-                        <input type="text" value="<?php echo esc_html($abstract->abstract_title); ?>" readonly
-                            style="border: none; background: none; font-size: 16px; font-weight: normal;">
-                    </p>
+                        <p><strong>Abstract Title:</strong>
+                            <input type="text" name="abstract_title" value="<?php echo esc_html($abstract->abstract_title); ?>"
+                                <?php echo $is_editable ? '' : 'readonly'; ?>
+                                style="border: none; background: none; font-size: 16px; font-weight: normal;">
+                        </p>
 
-                    <p><strong>Abstract Description:</strong></p>
-                    <textarea readonly
-                        style="width: 100%; height: 200px; font-size: 16px; font-weight: normal;"><?php echo esc_html($abstract->abstract_description); ?></textarea>
+                        <p><strong>Abstract Description:</strong></p>
+                        <textarea name="abstract_description" <?php echo $is_editable ? '' : 'readonly'; ?>
+                            style="width: 100%; height: 200px; font-size: 16px; font-weight: normal;"><?php echo esc_html($abstract->abstract_description); ?></textarea>
+                        <p>
+                            <a href="<?php echo esc_url(site_url('/wp-admin/admin.php?page=received_abstracts')); ?>"
+                                class="button">Back</a>
+                        </p>
 
-                    <p>
-                        <a href="<?php echo esc_url(add_query_arg('download', 'doc', $_SERVER['REQUEST_URI'])); ?>"
-                            class="button">Download as DOC</a>
-                    </p>
+                        <?php if ($is_editable): ?>
+                            <p>
+                                <input type="submit" class="button" name="update_abst" value="Update">
+                            </p>
+                        <?php else: ?>
+                            <p>
+                                <a href="<?php echo esc_url(add_query_arg('download', 'doc', $_SERVER['REQUEST_URI'])); ?>"
+                                    class="button">Download as DOC</a>
+                            </p>
+                        <?php endif; ?>
+                    </form>
+
                 </div>
                 <?php
         } else {
@@ -941,6 +1165,10 @@ function handle_abstract_status_update()
 
         $abstract_id = intval($_GET['id']);
         $status = sanitize_text_field($_GET['status']);  // The status passed from the button click
+
+        // Log the ID and status for debugging
+
+
         $author_id = $wpdb->get_var(
             $wpdb->prepare(
                 "SELECT author_id FROM {$wpdb->prefix}abstract_submissions WHERE id = %d",
@@ -954,31 +1182,40 @@ function handle_abstract_status_update()
             )
         );
 
+        // Log the author ID and abstract title
+
+
         $user_info = get_userdata($author_id);
 
-        // Check if user exists and email is available
-
-
-        // Map the incoming status to the actual status to store in the database
-        switch ($status) {
-            case 'pending':
-                $status = 'Pending for review';
-                break;
-            case 'edit':
-                $status = 'Edited';
-                break;
-            case 'approve':
-                $status = 'Approved';
-                break;
-            case 'reject':
-                $status = 'Rejected';
-                break;
-            default:
-                $status = 'Unknown';  // In case of an invalid status
-                break;
+        // Log the user info for debugging
+        if ($user_info) {
+            // error_log("User Email: " . $user_info->user_email);
+        } else {
+            // error_log("No user found with ID: " . $author_id);
         }
+
+        // Check if user exists and email is available
         if ($user_info) {
             $user_email = $user_info->user_email;
+
+            // Map the incoming status to the actual status to store in the database
+            switch ($status) {
+                case 'pending':
+                    $status = 'Pending for review';
+                    break;
+                case 'edit':
+                    $status = 'Edited';
+                    break;
+                case 'approve':
+                    $status = 'Approved';
+                    break;
+                case 'reject':
+                    $status = 'Rejected';
+                    break;
+                default:
+                    $status = 'Unknown';  // In case of an invalid status
+                    break;
+            }
 
             // Prepare the email subject and message
             $subject = 'Abstract Status Update';
@@ -997,9 +1234,20 @@ function handle_abstract_status_update()
             // Set the email headers
             $headers = array('Content-Type: text/html; charset=UTF-8');
 
+            // Log the email data before sending
+
+
             // Send the email
-            wp_mail($user_email, $subject, nl2br($message), $headers);
+            $mail_sent = wp_mail($user_email, $subject, nl2br($message), $headers);
+
+            // Check if the email was sent successfully
+            if ($mail_sent) {
+                error_log("Email sent successfully to: " . $user_email);
+            } else {
+                error_log("Failed to send email to: " . $user_email);
+            }
         }
+
         // Update the reviewer_status column based on the status
         $table_name = $wpdb->prefix . 'abstract_submissions';  // Table name
         $wpdb->update(
@@ -1011,7 +1259,13 @@ function handle_abstract_status_update()
         );
 
         // Redirect to the received_abstracts page after updating
-        wp_redirect(admin_url('admin.php?page=received_abstracts'));
+        if ($status == 'Edited') {
+            // Redirect to the view_abstract page if the status is 'edit'
+            wp_redirect(admin_url('admin.php?page=view_abstract&id=' . $abstract_id . '&rc_edit=true'));
+        } else {
+            // Redirect to the received_abstracts page for other status changes
+            wp_redirect(admin_url('admin.php?page=received_abstracts'));
+        }
         exit;
     }
 }
@@ -1076,8 +1330,9 @@ function view_available_abstracts_callback()
         echo '<table class="wp-list-table widefat  striped">';
         echo '<thead>
                 <tr>
-                    <th>Title</th>
+                 <th>Sr no.</th>
                     <th>Author</th>
+                    <th>Title</th>
                     <th>Co-Author</th>
                     <th>Co-Author Certificate Status</th>
                     <th>Issue Certificate (Co-Author)</th>
@@ -1089,14 +1344,17 @@ function view_available_abstracts_callback()
                 </tr>
               </thead>';
         echo '<tbody>';
-
+$sr_no=1;
         foreach ($abstracts as $abstract) {
             $abstract_id = $abstract->id;
-            $abstract_title = $abstract->abstract_title;
             $author_name = $abstract->author_name;
+            $abstract_title = $abstract->abstract_title;
+            
             $reviewer_status = $abstract->reviewer_status;
-            $certificate_issued = $abstract->certificate_issued;
+            $review_class = ($reviewer_status == 'Approved') ? 'approved-review-final' : 'pending-review';
 
+            $certificate_issued = $abstract->certificate_issued;
+            // $certificate_uid = $abstract->certificate_unique_id;
             // Process co_authors and co_authors_ids into arrays (if available)
             $co_authors_array = !empty($abstract->co_authors) ? array_map('trim', explode(',', $abstract->co_authors)) : array();
             $co_authors_ids_array = !empty($abstract->co_authors_ids) ? array_map('trim', explode(',', $abstract->co_authors_ids)) : array();
@@ -1105,24 +1363,30 @@ function view_available_abstracts_callback()
             if ($num_coauthors === 0) {
                 // No co-authors; display a single row with blank co-author cells.
                 echo '<tr>';
-                echo '<td>' . esc_html($abstract_title) . '</td>';
+                echo '<td>' . $sr_no++ . '</td>';
                 echo '<td>' . esc_html($author_name) . '</td>';
+                echo '<td>' . esc_html($abstract_title) . '</td>';
+                
                 echo '<td colspan="2">No co-authors</td>';
-                echo '<td>' . esc_html($reviewer_status) . '</td>';
+                echo '<td class="' . esc_attr($review_class) . '">' . esc_html($reviewer_status) . '</td>';
                 // Action: view abstract
-                echo '<td><a href="' . esc_url(admin_url('admin.php?page=view_abstract&id=' . $abstract_id)) . '" class="button">View</a></td>';
+                echo '<td><a href="' . esc_url(admin_url('admin.php?page=view_abstract&id=' . $abstract_id)) . '" class="button view-abst">View</a></td>';
                 // Download certificate cell:
                 echo '<td>';
                 if ($certificate_issued) {
                     $upload_dir = wp_upload_dir();
                     $certificate_url = esc_url($upload_dir['baseurl'] . '/certificates/abstract_' . $abstract_id . '_certificate.pdf');
-                    echo '<a href="' . $certificate_url . '" download class="button">Download Certificate</a>';
+                    echo '<a href="' . $certificate_url . '" download class="button download-certificate">Download Certificate</a>';
                 } else {
-                    echo 'No certificate issued';
+                    echo '<span class="no-certificate">No certificate issued</span>';
+
+                }
+                if ($certificate_issued) {
+                    echo '<span class="button certificate-issued">Certificate Issued</span>';
+                } else {
+                    echo '<a href="' . esc_url(admin_url('admin.php?page=view_available_abstracts&id=' . $abstract_id . '&issue_certificate=true')) . '" class="button">Issue Certificate</a>';
                 }
                 echo '</td>';
-                // Issue Certificate cell:
-                echo '<td><a href="' . esc_url(admin_url('admin.php?page=view_available_abstracts&id=' . $abstract_id . '&issue_certificate=true')) . '" class="button">Issue Certificate</a></td>';
                 echo '</tr>';
             } else {
                 // There are co-authors. For the first co-author, output the main abstract details with rowspan.
@@ -1130,45 +1394,59 @@ function view_available_abstracts_callback()
                 $first_co_author_id = isset($co_authors_ids_array[0]) ? $co_authors_ids_array[0] : '';
                 $first_cert_status = get_co_author_certificate_status($abstract_id, $first_co_author_id);
                 $certificate_link = get_certificate_link($abstract_id, $first_co_author_id); // Function to get certificate link
-
+                $class = ($first_cert_status == 'Valid') ? 'valid-member' : '';
+                $icon = ($first_cert_status == 'Valid') ? '✔' : '❌';
                 echo '<tr>';
-                echo '<td rowspan="' . $num_coauthors . '">' . esc_html($abstract_title) . '</td>';
+                echo '<td rowspan="' . $num_coauthors . '">' . $sr_no++ . '</td>';
                 echo '<td rowspan="' . $num_coauthors . '">' . esc_html($author_name) . '</td>';
+                echo '<td rowspan="' . $num_coauthors . '">' . esc_html($abstract_title) . '</td>';
+                
                 echo '<td>' . esc_html($first_co_author) . '</td>';
-                echo '<td>' . esc_html($first_cert_status) . '</td>';
+                echo '<td class="' . esc_attr($class) . '">' . esc_html($first_cert_status) . ' ' . $icon . '</td>';
 
                 // Issue Certificate button for co-author if cert_status is not 'valid'
                 if ($first_cert_status == 'Valid') {
-                    echo '<td><a href="' . esc_url(admin_url('admin.php?page=view_available_abstracts&issue_co_author_certificate=true&abstract_id=' . $abstract_id . '&co_author_id=' . $first_co_author_id)) . '" class="button">Issue Co-Author Certificate</a></td>';
+                    if ($certificate_link) {
+                        echo '<td><span class="button certificate-issued">Certificate Issued</span></td>';
+                    } else {
+                        echo '<td><a href="' . esc_url(admin_url('admin.php?page=view_available_abstracts&issue_co_author_certificate=true&abstract_id=' . $abstract_id . '&co_author_id=' . $first_co_author_id)) . '" class="button valid-member">Issue Co-Author Certificate</a></td>';
+                    }
                 } else {
-                    echo '<td>This user doesnt match criteria</td>';
+                    echo '<td class="invalid-member">This user doesnt match criteria</td>';
                 }
 
                 // Download Co-Author Certificate or "No certificate" message
                 echo '<td>';
                 if ($certificate_link) {
-                    echo '<a href="' . esc_url($certificate_link) . '" download class="button">Download Certificate</a>';
+                    echo '<a href="' . esc_url($certificate_link) . '" download class="button download-certificate">Download Certificate</a>';
                 } else {
-                    echo 'No certificate issued';
+                    echo '<span class="no-certificate">No certificate issued</span>';
+
                 }
                 echo '</td>';
 
-                echo '<td rowspan="' . $num_coauthors . '">' . esc_html($reviewer_status) . '</td>';
+                echo '<td class="' . esc_attr($review_class) . '" rowspan="' . intval($num_coauthors) . '">' . esc_html($reviewer_status) . '</td>';
                 echo '<td rowspan="' . $num_coauthors . '">
-                        <a href="' . esc_url(admin_url('admin.php?page=view_abstract&id=' . $abstract_id)) . '" class="button">View</a>
+                        <a href="' . esc_url(admin_url('admin.php?page=view_abstract&id=' . $abstract_id)) . '" class="button view-abst">View</a>
                       </td>';
                 echo '<td rowspan="' . $num_coauthors . '">';
                 if ($certificate_issued) {
                     $upload_dir = wp_upload_dir();
                     $certificate_url = esc_url($upload_dir['baseurl'] . '/certificates/abstract_' . $abstract_id . '_certificate.pdf');
-                    echo '<a href="' . $certificate_url . '" download class="button">Download Certificate</a>';
+                    echo '<a href="' . $certificate_url . '" download class="button download-certificate">Download Certificate</a>';
                 } else {
-                    echo 'No certificate issued';
+                    echo '<span class="no-certificate">No certificate issued</span>';
+
                 }
                 echo '</td>';
-                echo '<td rowspan="' . $num_coauthors . '">
+                if ($certificate_issued) {
+                    echo '<td rowspan="' . $num_coauthors . '">
+                   <span class="button certificate-issued">Certificate Issued</span>  </td>';
+                } else {
+                    echo '<td rowspan="' . $num_coauthors . '">
                         <a href="' . esc_url(admin_url('admin.php?page=view_available_abstracts&id=' . $abstract_id . '&issue_certificate=true')) . '" class="button">Issue Certificate</a>
                       </td>';
+                }
                 echo '</tr>';
 
                 // For additional co-authors, output a row for each.
@@ -1178,24 +1456,27 @@ function view_available_abstracts_callback()
                         $co_author_id = isset($co_authors_ids_array[$i]) ? $co_authors_ids_array[$i] : '';
                         $cert_status = get_co_author_certificate_status($abstract_id, $co_author_id);
                         $certificate_link = get_certificate_link($abstract_id, $co_author_id); // Function to get certificate link
-
+                        $class = ($cert_status == 'Valid') ? 'valid-member' : 'invalid-member';
+                        $icon = ($cert_status == 'Valid') ? '✔' : '❌';
                         echo '<tr>';
                         echo '<td>' . esc_html($co_author) . '</td>';
-                        echo '<td>' . esc_html($cert_status) . '</td>';
+                        echo '<td class="' . esc_attr($class) . '">' . esc_html($cert_status) . ' ' . $icon . '</td>';
+
 
                         // Issue Certificate button for co-authors if cert_status is not 'valid'
                         if ($cert_status == 'valid') {
                             echo '<td><a href="' . esc_url(admin_url('admin.php?page=view_available_abstracts&issue_co_author_certificate=true&abstract_id=' . $abstract_id . '&co_author_id=' . $co_author_id)) . '" class="button">Issue Co-Author Certificate</a></td>';
                         } else {
-                            echo '<td>This user doesnt match criteria</td>';
+                            echo '<td  class="invalid-member">This user doesnt match criteria</td>';
                         }
 
                         // Download Co-Author Certificate or "No certificate" message
                         echo '<td>';
                         if ($certificate_link) {
-                            echo '<a href="' . esc_url($certificate_link) . '" download class="button">Download Certificate</a>';
+                            echo '<a href="' . esc_url($certificate_link) . '" download class="button download-certificate">Download Certificate</a>';
                         } else {
-                            echo 'No certificate issued';
+                            echo '<span class="no-certificate">No certificate issued</span>';
+
                         }
                         echo '</td>';
                         echo '</tr>';
@@ -1639,7 +1920,8 @@ add_action('pmpro_after_checkout', 'set_membership_brought_id_on_registration', 
 
 
 //co-author listing page
-function membership_certificate_shortcode() {
+function membership_certificate_shortcode()
+{
     // Get current user ID
     $user_id = get_current_user_id();
 
@@ -1663,7 +1945,7 @@ function membership_certificate_shortcode() {
     // Access the 'abstract_submissions' table to find matching entries
     $results = $wpdb->get_results(
         $wpdb->prepare(
-            "SELECT id, author_name, co_authors_ids, abstract_title, abstract_description, reviewer_status, secretary_status
+            "SELECT id, author_name, co_authors, co_authors_ids, abstract_title, abstract_description, reviewer_status, secretary_status
             FROM {$wpdb->prefix}abstract_submissions WHERE FIND_IN_SET(%s, co_authors_ids)",
             $membership_brought_id
         )
@@ -1676,55 +1958,142 @@ function membership_certificate_shortcode() {
     // Start output buffering for the table HTML
     ob_start();
     ?>
-    <h2>Abstracts Where You Are a Co-Author</h2>
-    <table class="membership-certificates-table" border="1" cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
-        <thead>
-            <tr>
-                <th>Abstract Title</th>
-                <th>Author Name</th>
-                <th>Co-Authors</th>
-                <th>Abstract Description</th>
-                <th>Reviewer Status</th>
-                <th>Secretary Status</th>
-                <th>Certificate Link</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($results as $row) : ?>
-            <tr>
-                <td><?php echo esc_html($row->abstract_title); ?></td>
-                <td><?php echo esc_html($row->author_name); ?></td>
-                <td><?php echo esc_html($row->co_authors_ids); ?></td>
-                <td><?php echo esc_html($row->abstract_description); ?></td>
-                <td><?php echo esc_html($row->reviewer_status); ?></td>
-                <td><?php echo esc_html($row->secretary_status); ?></td>
+        <h2>Abstracts Where You Are a Co-Author</h2>
+        <table class="membership-certificates-table" border="1" cellpadding="10" cellspacing="0"
+            style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>Abstract Title</th>
+                    <th>Author Name</th>
+                    <th>Co-Authors Name</th>
+                    <th>Co-Authors</th>
+                    <th>Abstract Description</th>
+                    <th>Reviewer Status</th>
+                    <th>Secretary Status</th>
+                    <th>Certificate Link</th>
+                    <th>Download Abstract</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($results as $row): ?>
+                    <tr>
+                        <td><?php echo esc_html($row->abstract_title); ?></td>
+                        <td><?php echo esc_html($row->author_name); ?></td>
+                        <td><?php echo esc_html($row->co_authors); ?></td>
+                        <td><?php echo esc_html($row->co_authors_ids); ?></td>
+                        <td><?php echo esc_html($row->abstract_description); ?></td>
+                        <td><?php echo esc_html($row->reviewer_status); ?></td>
+                        <td><?php echo esc_html($row->secretary_status); ?></td>
 
-                <?php
-                // Now get the certificate link for the abstract
-                $certificate_link = $wpdb->get_var(
-                    $wpdb->prepare(
-                        "SELECT certificate_link FROM {$wpdb->prefix}co_author_certificates 
+                        <?php
+                        // Now get the certificate link for the abstract
+                        $certificate_link = $wpdb->get_var(
+                            $wpdb->prepare(
+                                "SELECT certificate_link FROM {$wpdb->prefix}co_author_certificates 
                         WHERE abstract_id = %d AND user_id = %d",
-                        $row->id, $user_id
-                    )
-                );
+                                $row->id,
+                                $user_id
+                            )
+                        );
 
-                // Display certificate link if available, otherwise display a message
-                if ($certificate_link) {
-                    echo '<td><a href="' . esc_url($certificate_link) . '" target="_blank">Download Certificate</a></td>';
-                } else {
-                    echo '<td>No certificate available</td>';
-                }
-                ?>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
-    <?php
-    // End output buffering and return the content
-    $output = ob_get_clean();
+                        // Display certificate link if available, otherwise display a message
+                        if ($certificate_link) {
+                            echo '<td><a href="' . esc_url($certificate_link) . '" target="_blank"class="button download-certificate">Download Certificate</a></td>';
+                        } else {
+                            echo '<td>No certificate available</td>';
+                        }
+                        // Add the 'Download Abstract' button (Word file)
+                        $abstract_download_url = esc_url(add_query_arg(['download_abstract' => $row->id], get_permalink()));
+                        echo '<td><a href="' . $abstract_download_url . '"class="button download-certificate">Download Abstract</a></td>';
 
-    return $output;
+                        ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php
+        // End output buffering and return the content
+        $output = ob_get_clean();
+
+        return $output;
+}
+function download_abstract_file()
+{
+    if (isset($_GET['download_abstract'])) {
+        $abstract_id = intval($_GET['download_abstract']);
+
+        // Load the abstract details from the database
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'abstract_submissions';
+        $abstract = $wpdb->get_row($wpdb->prepare(
+            "SELECT author_name, co_authors_ids, abstract_title, abstract_description 
+             FROM $table_name WHERE id = %d",
+            $abstract_id
+        ));
+
+        if ($abstract) {
+            // Include PHPWord library
+            require_once ABSPATH . 'wp-content/vendor/autoload.php';
+
+            // Create a new PHPWord object
+            $phpWord = new \PhpOffice\PhpWord\PhpWord();
+            $section = $phpWord->addSection();
+
+            // Ensure the document allows modifications
+            $phpWord->getSettings()->setUpdateFields(true);
+
+            // Title Styling
+            $titleStyle = ['bold' => true, 'size' => 20, 'color' => '0000FF']; // Blue color, large text
+            $section->addText("Abstract Details", $titleStyle);
+            $section->addTextBreak(2); // Add some space
+
+            // Styling for headings and content
+            $headingStyle = ['bold' => true, 'size' => 14, 'color' => '333333']; // Dark gray headings
+            $contentStyle = ['size' => 12, 'color' => '000000']; // Black normal text
+
+            // Add abstract details
+            $section->addText("Abstract Title:", $headingStyle);
+            $section->addText($abstract->abstract_title, $contentStyle);
+            $section->addTextBreak(1); // Add spacing
+
+            $section->addText("Author Name:", $headingStyle);
+            $section->addText($abstract->author_name, $contentStyle);
+            $section->addTextBreak(1);
+
+            $section->addText("Co-Authors:", $headingStyle);
+            $section->addText($abstract->co_authors, $contentStyle);
+            $section->addTextBreak(1);
+
+            $section->addText("Abstract Description:", $headingStyle);
+            $section->addText($abstract->abstract_description, ['size' => 12, 'color' => '000000', 'italic' => true]);
+            $section->addTextBreak(2); // Extra spacing at the end
+
+            // Define the file path
+            $file_path = sys_get_temp_dir() . '/abstract_' . $abstract_id . '.docx';
+
+            // Save the document properly using the Writer
+            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+            $objWriter->save($file_path);
+
+            // Clear output buffer to avoid corruption
+            ob_clean();
+
+            // Send headers for download
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+            header('Content-Disposition: attachment; filename="abstract_' . $abstract_id . '.docx"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file_path));
+            readfile($file_path);
+            unlink($file_path); // Delete the file after download
+
+            exit;
+        }
+    }
 }
 
+// Hook to handle the download request
+add_action('template_redirect', 'download_abstract_file');
 add_shortcode('membership_certificate', 'membership_certificate_shortcode');
